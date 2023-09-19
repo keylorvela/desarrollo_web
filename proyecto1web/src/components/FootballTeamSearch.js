@@ -53,7 +53,7 @@ function FootballTeamSearch() {
       </label>
       <button onClick={searchTeams}>Buscar</button>
 
-      {texto == '' ? ' ✔' : texto}
+      {texto === '' ? ' ✔' : texto}
     </div>
   );
 }
