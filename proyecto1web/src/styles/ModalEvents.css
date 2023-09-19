@@ -1,0 +1,46 @@
+.match-details-section {
+    background-color: #58a539;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid black; /* Borde negro */
+    margin-top: 10px;
+  }
+  
+  .match-details {
+    display: flex;
+    flex-direction: row; /* Alinear los elementos en una fila horizontal */
+    justify-content: center; /* Centrar horizontalmente los elementos */
+    align-items: center;
+  }
+  
+  
+  .details-up {
+    /* Estilos para el contenido a la derecha */
+    display: flex;
+    flex-direction: row; /* Alinear los elementos en una fila horizontal */
+    justify-content: center; /* Centrar horizontalmente los elementos */
+    gap: 10px; 
+   
+  }
+  .details-down {
+    display: flex;
+    flex-direction: column; /* Alinear los elementos en una columna vertical */
+    align-items: center; /* Centrar verticalmente los elementos */
+    gap: 10px; 
+   
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid #504f4f; /* Establece el estilo y color de la línea */
+    margin: 20px 0; /* Ajusta el espaciado vertical según tus preferencias */
+  }  
+
+
+  /* Cambia la fuente del texto dentro del modal */
+.modal-text {
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Cambia "Arial" por la fuente deseada */
+  }

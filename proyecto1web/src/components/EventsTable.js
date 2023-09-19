@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import '../styles/TeamTable.css';
+import '../styles/ModalEvents.css';
 
 const modalStyle = {
   content: {
@@ -20,16 +21,16 @@ const EventsTable = () => {
   const eventos = [
     {
       id: 1,
-      casa: 'Equipo 1',
+      casa: 'Equipo1',
       c_goles: 1,
-      visita:  'Estadio 1',
+      visita:  'Estadio1',
       v_goles: 2,
     },
     {
         id: 2,
-        casa: 'Equipo 2',
+        casa: 'Equipo2',
         c_goles: 1,
-        visita:  'Estadio 2',
+        visita:  'Estadio2',
         v_goles: 2,
     },
     // Agrega más eventos según tus necesidades
@@ -91,34 +92,32 @@ const EventsTable = () => {
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
         {selectedTeam && (
             <div>
-            {/* Sección "Detalles del evento" */}
-            <div className="team-details-section">
-                <div className="team-details-right">
-                <h2 className="modal-text">Detalles del evento</h2>
-                <p className="modal-text">Nombre evento: {selectedTeam.casa}</p>
-                <p className="modal-text">País: {selectedTeam.c_goles}</p>
-                <p className="modal-text">Fundado: {selectedTeam.visita}</p>
+            
+                <div className="details-up">
+                <p className="modal-text">Liga: Lliga1</p>
+                <p className="modal-text">Fecha:fecha1</p>
+                <p className="modal-text">Temporadaa: temp1</p>
                 </div>
-                <div className="team-details-left">
+            
+            <hr className="divider" />
+            <div className="match-details-section">
+            <div className="match-details">
                 <img src="../logos/evento.png" alt="evento" />
                 </div>
+                <h2 className="modal-text">{selectedTeam.casa}</h2>
+                <h2  className="modal-text">{selectedTeam.c_goles}</h2 >
+                <h2>-</h2 >
+                <h2  className="modal-text">{selectedTeam.v_goles}</h2 >
+                <h2 className="modal-text">{selectedTeam.visita}</h2>
+                <img src="../logos/evento.png" alt="evento" />
             </div>
-            <hr className="divider" />
-            {/* Sección "Detalles del Estadio" */}
-            <div className="stadium-details-section">
-                <div className="stadium-details-right">
-                <h2 className="modal-text">Detalles del Estadio</h2>
-                <p className="modal-text">Estadio: {selectedTeam.v_goles}</p>
-                <p className="modal-text">Nombre: Nombre del estadio</p>
-                <p className="modal-text">Dirección: Dirección del estadio</p>
-                <p className="modal-text">Ciudad: Ciudad del estadio</p>
-                <p className="modal-text">Capacidad: Capacidad del estadio</p>
-                <p className="modal-text">Gramilla: Tipo de gramilla</p>
+           
+                <div className="details-down">
+                <p className="modal-text">Estado: Fin</p>
+                <p className="modal-text">Estadio: Estadio1</p>
+                <p className="modal-text">Arbrito: A1</p>
                 </div>
-                <div className="stadium-details-left">
-                <img src="../logos/estadio.png" alt="Estadio" />
-                </div>
-            </div>
+         
             </div>
         )}
         </Modal>
