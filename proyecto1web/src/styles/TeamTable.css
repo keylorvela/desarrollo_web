@@ -1,0 +1,112 @@
+/* TeamTable.css */
+
+.button-ver-detalles {
+    background-color: #134700; /* Fondo verde */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 50%; /* Forma redonda */
+    width: 40px; /* Ancho */
+    height: 40px; /* Altura */
+    font-size: 18px; /* Tamaño de fuente */
+    cursor: pointer;
+  }
+  
+  /* Flecha en el botón */
+  .button-ver-detalles::after {
+    content: '→'; /* Flecha hacia la derecha */
+    font-size: 20px;
+  }
+
+.team-table-container {
+    margin: 20px; /* Margen entre el borde de la página y la tabla */
+  }
+  
+  .team-table {
+    width: 100%; /* Ancho de la tabla al 100% del contenedor */
+    border-collapse: separate;
+    border: 2px solid #2c2c2c; 
+    border-radius: 20px; /* Bordes redondeados para el encabezado */
+    padding: 15px;
+    border-spacing: 10px; /* Margen entre las celdas */
+  }
+  
+  .table-header {
+    background-color: #A8DF94; /* Fondo verde para el encabezado */
+    border-radius: 30px; /* Bordes redondeados para el encabezado */
+    padding: 15px; /* Espaciado dentro del encabezado */
+    font-size: 18px;
+  }
+  
+  .table-header-cell {
+    border-radius: 30px; /* Bordes redondeados para las celdas del encabezado */
+    padding: 15px; /* Espaciado dentro de las celdas del encabezado */
+  }
+  
+  .table-row {
+    border-radius: 20px; /* Bordes redondeados para las filas */
+  }
+  
+  .table-cell {
+    border-radius: 20px; /* Bordes redondeados para las celdas */
+    padding: 5px; /* Espaciado dentro de las celdas */
+  }
+  
+  .table-icon {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .team-table tbody tr:nth-child(odd) {
+    background-color: #e0dede; /* Puedes ajustar este color gris claro según tus preferencias */
+  }
+
+
+  /* Estilos para la sección del equipo */
+.team-details-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre las secciones */
+  }
+  
+  .team-details-right {
+    /* Estilos para el contenido a la derecha */
+    flex: 1; /* Ocupa todo el espacio disponible */
+  }
+  
+  .team-details-left {
+    /* Estilos para la imagen a la izquierda */
+    margin-left: 10px; /* Espacio entre la imagen y el contenido */
+    max-width: 150px; /* Ancho máximo de la imagen */
+    height: auto; /* Ajusta automáticamente la altura */
+  }
+  
+  /* Estilos para la sección del estadio */
+  .stadium-details-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre las secciones */
+  }
+  
+  .stadium-details-right {
+    /* Estilos para el contenido a la derecha */
+    flex: 1; /* Ocupa todo el espacio disponible */
+  }
+  
+  .stadium-details-left {
+    /* Estilos para la imagen a la izquierda */
+    margin-left: 10px; /* Espacio entre la imagen y el contenido */
+    max-width: 150px; /* Ancho máximo de la imagen */
+    height: auto; /* Ajusta automáticamente la altura */
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid #504f4f; /* Establece el estilo y color de la línea */
+    margin: 20px 0; /* Ajusta el espaciado vertical según tus preferencias */
+  }  
+
+
+  /* Cambia la fuente del texto dentro del modal */
+.modal-text {
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Cambia "Arial" por la fuente deseada */
+  }
+  
