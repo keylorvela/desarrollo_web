@@ -1,5 +1,5 @@
 import countries from '../data/countries.json';
-const local = false;
+const local = true;
 const apiUrl = "https://v3.football.api-sports.io/countries";
 
   const requestOptions = {

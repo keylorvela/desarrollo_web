@@ -21,7 +21,7 @@ const top100Films = [{"name":"Albania","code":"AL","flag":"https://media-4.api-s
 
 
 function Home() {
-  return <><FootballTeamSearch/></>;
+  return <>HOME</>;
 }
 
 
