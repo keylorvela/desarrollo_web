@@ -58,6 +58,7 @@ const EventsTable = () => {
             <th className="table-header-cell">Acción</th>
           </tr>
         </thead>
+        <p/>
         <tbody>
           {eventos.map((evento, index) => (
             <tr key={evento.id} className="table-row">

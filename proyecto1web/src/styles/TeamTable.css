@@ -23,11 +23,10 @@
   
   .team-table {
     width: 100%; /* Ancho de la tabla al 100% del contenedor */
-    border-collapse: separate;
-    border: 2px solid #2c2c2c; 
-    border-radius: 20px; /* Bordes redondeados para el encabezado */
+    border: 2px solid #2c2c2c;
+    border-radius: 20px; /* Bordes redondeados para la tabla */
     padding: 15px;
-    border-spacing: 10px; /* Margen entre las celdas */
+    border-spacing: 0px; /* Margen entre las celdas */
   }
   
   .table-header {
@@ -38,7 +37,7 @@
   }
   
   .table-header-cell {
-    border-radius: 30px; /* Bordes redondeados para las celdas del encabezado */
+    border-radius: 0px; /* Bordes redondeados para las celdas del encabezado */
     padding: 15px; /* Espaciado dentro de las celdas del encabezado */
   }
   

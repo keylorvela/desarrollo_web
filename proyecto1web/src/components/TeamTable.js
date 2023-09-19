@@ -57,6 +57,7 @@ const TeamTable = () => {
             <th className="table-header-cell">Acción</th>
           </tr>
         </thead>
+        <p/>
         <tbody>
           {equipos.map((equipo, index) => (
             <tr key={equipo.id} className="table-row">
