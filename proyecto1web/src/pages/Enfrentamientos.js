@@ -1,6 +1,6 @@
 import dao from '../controller/dao.js'
 import React, { useState, useEffect } from 'react';
-
+import EventsTable from '../components/EventsTable';
 
 //Ejemplo uso dao!!
 function Enfrentamientos() {
@@ -21,6 +21,7 @@ function Enfrentamientos() {
 
   return (
     <div className="App">
+      <EventsTable/>
       <h1>Lista de Países</h1>
       {countries.get}
       <ul>
@@ -29,7 +30,10 @@ function Enfrentamientos() {
           <li key={index}>{item.name}</li>
         ))}
       </ul>
-
+      <footer>
+        <p>&copy; 2023 Mi Sitio Web. Todos los derechos reservados.</p>
+        <p>Contáctanos: <a href="mailto:info@misitioweb.com">info@misitioweb.com</a></p>
+    </footer>
     </div>
   );
 
