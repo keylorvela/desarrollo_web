@@ -24,11 +24,6 @@ function Home() {
   return <><FootballTeamSearch/></>;
 }
 
-function Enfrentamientos() {
-  return <><FootballTeamSearch/></>;
-}
-
-
 
 function TextArea() {
   return (
