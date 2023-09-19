@@ -41,7 +41,8 @@ function Navbar() {
         <Grid item xs={4}>
           <Box sx={{flexGrow: 0, mt:2}}>
             
-<Link to="/"><img
+<Link to="/">
+<img
       src={logo} // Reemplaza con la ruta de tu imagen
       alt="Logo"
       width="270px" // Ancho fijo de 200 píxeles
