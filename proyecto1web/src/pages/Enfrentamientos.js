@@ -1,4 +1,5 @@
-import dao from '../controller/dao.js'
+import daoEquipos from '../controller/daoEquipos.js'
+import daoEventos from '../controller/daoEventos.js'
 import React, { useState, useEffect } from 'react';
 import EventsTable from '../components/EventsTable';
 import Filtros from '../components/Filtros.js';
@@ -24,12 +25,16 @@ function Enfrentamientos() {
   const handleParamChange = (newParams) => {
     setParams(newParams);
   };
-
+  const [teams, setTeams] = useState([]);
+  const parametros = {
+    country: 'England',
+  };
    useEffect(() => {
     const execute = async () => {
       try {
-        const data = await dao.getCountries(); // Utiliza la función dao importada
-        setCountries(data);
+        const data = await daoEquipos.getTeamsByParams(parametros); // Utiliza la función dao importada
+        setTeams(data);
+        console.log(data.response);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -60,7 +65,6 @@ function Enfrentamientos() {
           <li key={index}>{item.name}</li>
         ))}
       </ul>
-
 
       
       <footer>

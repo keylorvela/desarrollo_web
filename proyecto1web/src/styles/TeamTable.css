@@ -53,6 +53,8 @@
   .table-icon {
     margin-right: 8px;
     vertical-align: middle;
+    max-width: 30px; /* Establece el tamaño máximo que desees */
+    max-height: 30px;
   }
   
   .team-table tbody tr:nth-child(odd) {
@@ -74,9 +76,9 @@
   
   .team-details-left {
     /* Estilos para la imagen a la izquierda */
-    margin-left: 10px; /* Espacio entre la imagen y el contenido */
-    max-width: 150px; /* Ancho máximo de la imagen */
-    height: auto; /* Ajusta automáticamente la altura */
+    margin-right: 5px; /* Espacio entre la imagen y el contenido */
+    max-width: 220px; /* Ancho máximo de la imagen */
+    max-height: 220px;
   }
   
   /* Estilos para la sección del estadio */
@@ -93,9 +95,9 @@
   
   .stadium-details-left {
     /* Estilos para la imagen a la izquierda */
-    margin-left: 10px; /* Espacio entre la imagen y el contenido */
-    max-width: 150px; /* Ancho máximo de la imagen */
-    height: auto; /* Ajusta automáticamente la altura */
+    margin-right: 5px; /* Espacio entre la imagen y el contenido */
+    max-width: 220px; /* Ancho máximo de la imagen */
+    max-height: 220px;
   }
   .divider {
     border: none;

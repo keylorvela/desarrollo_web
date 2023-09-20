@@ -1,7 +1,3 @@
-import countries from '../data/countries.json';
-const local = true;
-const apiUrl = "https://v3.football.api-sports.io/countries";
-
   const requestOptions = {
     headers: {
       'x-rapidapi-host': 'v3.football.api-sports.io',
@@ -9,25 +5,27 @@ const apiUrl = "https://v3.football.api-sports.io/countries";
     },
   };
 
+const daoEventos = {
 
-const dao = {
-  getCountries: async () => {
-    if (local)
-      return countries;
+  async  getFixturesByParams(params) {
     try {
-      const response = await fetch(apiUrl, requestOptions);
-
+      const queryParams = new URLSearchParams(params);
+      const url = `https://v3.football.api-sports.io/fixtures?${queryParams.toString()}`;
+  
+      const response = await fetch(url, requestOptions);
       if (!response.ok) {
         throw new Error('La solicitud no fue exitosa');
       }
-
+  
       return response.json(); // Parsea la respuesta JSON y la retorna
     } catch (error) {
-      console.error('Error en la función getCountries:', error);
+      console.error('Error en la función getFixturesByParams:', error);
       throw error;
     }
-  },
+  }
+  
+
 };
 
 
-export default dao;
+export default daoEventos;
