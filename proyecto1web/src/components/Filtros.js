@@ -1,11 +1,18 @@
 import countries from '../data/countries.json';
+import leagues from '../data/leagues.json';
+
 
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 import Checkbox from '@mui/material/Checkbox';
@@ -21,6 +28,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function OptionsCountry(){
   return(
@@ -28,8 +37,92 @@ function OptionsCountry(){
     
     </>
   )
-};
+};//
 
+function noRep(){
+  const nombresUnicos = new Set(); // Conjunto para realizar un seguimiento de los nombres únicos
+  const datosUnicos = []; // Array para almacenar objetos únicos
+
+  leagues.response?.forEach((objeto) => {
+    if (!nombresUnicos.has(objeto.league.name)) {
+      nombresUnicos.add(objeto.league.name); // Agregar el nombre al conjunto
+      datosUnicos.push(objeto); // Agregar el objeto único al nuevo array
+    }
+  });
+  return datosUnicos;
+}
+
+
+function sleep(delay = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
+
+function Asynchronous() {
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      await sleep(1e3); // For demo purposes.
+
+      if (active) {
+        setOptions([...noRep()]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
+
+  return (
+    <Autocomplete
+      id="asynchronous-demo"
+      sx={{ width: 300 }}
+      open={open}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      isOptionEqualToValue={(option, value) => option.league.name === value.league.name}
+      getOptionLabel={(option) => option.league.name}
+      options={options}
+      loading={loading}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Asynchronous"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            ),
+          }}
+        />
+      )}
+    />
+  );
+}
 
 function SelectCustom({ handleChange, label, items }) { // Añade handleChange como una prop
   return (
@@ -52,53 +145,39 @@ function SelectCustom({ handleChange, label, items }) { // Añade handleChange c
       </Select>
     </FormControl>
   );
-}
+}//
 
 
-function FootballTeamSearch() {
-  //TODO Pasar props desde el padre
-
-  const [params, setParams] = React.useState(null);
-
-  const [checked, setChecked] = React.useState(false);
-  const [fromDate, setFromDate] = React.useState(null);
-  const [toDate, setToDate] = React.useState(null);
-  const [countrie, setCountrie] = React.useState(null);
-
-
-  // 
-
+function FootballTeamSearch({pparams, handler}) {
+  
   const handleChangeLive = (event) => {
-    setChecked(!checked);
-  };
+  const newParams = { ...pparams, vivo: !pparams.vivo };
+  handler(newParams);
+};
 
-  const handleFromDateChange = (date) => {
-    const formattedDate = dayjs(date).format('YYYY-MM-DD');
-    setFromDate(formattedDate);
-  };
+const handleFromDateChange = (date) => {
+  const formattedDate = dayjs(date).format('YYYY-MM-DD');
+  const newParams = { ...pparams, from: formattedDate };
+  handler(newParams);
+};
 
-  const handleToDateChange = (date) => {
-    const formattedDate = dayjs(date).format('YYYY-MM-DD');
-    setToDate(formattedDate);
-  };
+const handleToDateChange = (date) => {
+  const formattedDate = dayjs(date).format('YYYY-MM-DD');
+  const newParams = { ...pparams, to: formattedDate };
+  handler(newParams);
+};
 
-  const handleSelectChange = (event) => {
-    setCountrie(event.target.value);
-  };
+const handleSelectChange = (event) => {
+  const newParams = { ...pparams, country: event.target.value };
+  handler(newParams);
+};
 
   
 
   // Llamar a la API con los filtros seleccionados
   const searchTeams = () => {
 
-    const obj = {
-      vivo : checked,
-      from : fromDate,
-      to : toDate,
-      countrie : countrie
-    }
-
-    setParams(obj);
+    handler(pparams);
     
   };
 
@@ -109,7 +188,7 @@ function FootballTeamSearch() {
         
         <Grid item xs>
           <Checkbox
-          checked={checked}
+          checked={pparams.vivo}
           onChange={handleChangeLive}
           inputProps={{ 'aria-label': 'controlled' }}/> EN VIVO
         </Grid>
@@ -117,7 +196,7 @@ function FootballTeamSearch() {
         <Grid item xs>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              value={fromDate}
+              value={pparams.from}
               onChange={handleFromDateChange}
             />
           </LocalizationProvider>
@@ -126,7 +205,7 @@ function FootballTeamSearch() {
         <Grid item xs>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              value={toDate}
+              value={pparams.to}
               onChange={handleToDateChange}
             />
           </LocalizationProvider>
@@ -136,7 +215,9 @@ function FootballTeamSearch() {
           <SelectCustom handleChange={handleSelectChange} label = {"Pais"} items = {OptionsCountry} />
         </Grid>
 
-
+        <Grid item xs = {2}>
+          <Asynchronous/>
+        </Grid>
 
         <Grid item xs>
          <button onClick={searchTeams}>Buscar</button>
@@ -145,15 +226,11 @@ function FootballTeamSearch() {
 
       </Grid>
     </Box>
-    
-      {/*Pruebillas*/}
 
-      {params === null ? 'NULLLLL' : params.vivo ? 'True': 'False'}
-      {fromDate} ---- {toDate}
-      {countrie === null ? 'X' : countrie}
     </div>
   );
 }
+
 
 export default FootballTeamSearch;
 
