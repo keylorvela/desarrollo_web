@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from '../logos/logo_white.png';
 
+import logo from '../logos/logo_white.png';
+import React, { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -21,7 +21,7 @@ const customStyle = {
 const custom = {
     backgroundColor: '#72BB56'
   };
-const selected = {
+const sselected = {
     backgroundColor: '#134700',
     color: 'white'
   };
@@ -32,6 +32,10 @@ const nselected = {
 
 
 function Navbar() {
+    const [selected, setSelected] = React.useState(-1);
+    const handleSelected = (id) => {
+        setSelected(id);
+    };
   return (
     <>
     <AppBar position="static" style = {customStyle}>
@@ -57,9 +61,9 @@ function Navbar() {
         <Grid item xs={12}  >
             <Grid container  >
             <Grid item xs={1} sx={{mx:0.1}}>
-            <Link to="/enfrentamientos"><Button variant="contained" style = {selected}>Enfrentamientos</Button></Link> </Grid>
+            <Link to="/enfrentamientos"><Button variant="contained" style = {selected == 1? sselected : nselected} onClick = {() => handleSelected(1)}>Enfrentamientos</Button></Link> </Grid>
             <Grid item xs={3}> </Grid> 
-            <Grid item xs={1} sx={{mx:0.1}}> <Link to="/equipos"><Button variant="contained" style = {nselected}>Equipos</Button>
+            <Grid item xs={1} sx={{mx:0.1}}> <Link to="/equipos"><Button variant="contained" style = {selected == 2? sselected : nselected} onClick = {() => handleSelected(2)}>Equipos</Button>
             </Link> </Grid>                   
             </Grid>
           </Grid>

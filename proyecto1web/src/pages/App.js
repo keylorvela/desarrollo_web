@@ -55,14 +55,15 @@ function TextArea() {
       </Grid>
     </Grid>
   );
-}
+}//
 
 function App() {
+  
+
   return (
   <div className="App">
     <Router>
     <Navbar/>
-    <TextArea/> 
           <Routes>
             <Route path='/equipos' element={<Equipos/>} />
             <Route path='/enfrentamientos' element={<Enfrentamientos/>} />
