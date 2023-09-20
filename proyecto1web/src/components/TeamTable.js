@@ -13,27 +13,9 @@ const modalStyle = {
   },
 };
 
-const TeamTable = () => {
+const TeamTable = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
-
-  const equipos = [
-    {
-      id: 1,
-      nombre: 'Equipo 1',
-      pais: 'País 1',
-      fundado: 2000,
-      estadio: 'Estadio 1',
-    },
-    {
-      id: 2,
-      nombre: 'Equipo 2',
-      pais: 'País 2',
-      fundado: 1995,
-      estadio: 'Estadio 2',
-    },
-    // Agrega más equipos según tus necesidades
-  ];
 
   const openModal = (equipo) => {
     setSelectedTeam(equipo);
@@ -59,19 +41,19 @@ const TeamTable = () => {
         </thead>
         <p/>
         <tbody>
-          {equipos.map((equipo, index) => (
+          {props.equipos.map((equipo, index) => (
             <tr key={equipo.id} className="table-row">
               <td className="table-cell">
                 <img
-                  src="../logos/logo.png"
-                  alt="Icono"
+                  src={equipo.team.logo}
+                  alt= "Equipo"
                   className="table-icon"
                 />
-                {equipo.nombre}
+                {equipo.team.name}
               </td>
-              <td className="table-cell">{equipo.pais}</td>
-              <td className="table-cell">{equipo.fundado}</td>
-              <td className="table-cell">{equipo.estadio}</td>
+              <td className="table-cell">{equipo.team.country}</td>
+              <td className="table-cell">{equipo.team.founded}</td>
+              <td className="table-cell">{equipo.venue.name}</td>
               <td className="table-cell">
                 <button
                   onClick={() => openModal(equipo)}
@@ -89,12 +71,12 @@ const TeamTable = () => {
             <div className="team-details-section">
                 <div className="team-details-right">
                 <h2 className="modal-text">Detalles del Equipo</h2>
-                <p className="modal-text">Nombre equipo: {selectedTeam.nombre}</p>
-                <p className="modal-text">País: {selectedTeam.pais}</p>
-                <p className="modal-text">Fundado: {selectedTeam.fundado}</p>
+                <p className="modal-text">Nombre equipo: {selectedTeam.team.name}</p>
+                <p className="modal-text">País: {selectedTeam.team.country}</p>
+                <p className="modal-text">Fundado: {selectedTeam.team.founded}</p>
                 </div>
                 <div className="team-details-left">
-                <img src="../logos/equipo.png" alt="Equipo" />
+                <img className="team-details-left" src={selectedTeam.team.logo} alt="Equipo" />
                 </div>
             </div>
             <hr className="divider" />
@@ -102,15 +84,14 @@ const TeamTable = () => {
             <div className="stadium-details-section">
                 <div className="stadium-details-right">
                 <h2 className="modal-text">Detalles del Estadio</h2>
-                <p className="modal-text">Estadio: {selectedTeam.estadio}</p>
-                <p className="modal-text">Nombre: Nombre del estadio</p>
-                <p className="modal-text">Dirección: Dirección del estadio</p>
-                <p className="modal-text">Ciudad: Ciudad del estadio</p>
-                <p className="modal-text">Capacidad: Capacidad del estadio</p>
-                <p className="modal-text">Gramilla: Tipo de gramilla</p>
+                <p className="modal-text">Estadio: {selectedTeam.venue.name}</p>
+                <p className="modal-text">Dirección: {selectedTeam.venue.address}</p>
+                <p className="modal-text">Ciudad: {selectedTeam.venue.city}</p>
+                <p className="modal-text">Capacidad: {selectedTeam.venue.capacity}</p>
+                <p className="modal-text">Gramilla: {selectedTeam.venue.surface}</p>
                 </div>
                 <div className="stadium-details-left">
-                <img src="../logos/estadio.png" alt="Estadio" />
+                <img className="stadium-details-left"src={selectedTeam.venue.image}alt="Estadio" />
                 </div>
             </div>
             </div>
