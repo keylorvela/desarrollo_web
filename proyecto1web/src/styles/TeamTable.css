@@ -110,4 +110,44 @@
 .modal-text {
     font-family: Verdana, Geneva, Tahoma, sans-serif; /* Cambia "Arial" por la fuente deseada */
   }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end; /*center*/
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: #134700;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .centered-alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+  }
+
+  .centered-alert .MuiAlert-root {
+    font-size: 20px; 
+    padding: 20px; 
+  }
   

@@ -16,6 +16,13 @@ const modalStyle = {
 const TeamTable = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // elementos por página
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const displayedTeams = props.equipos.slice(startIndex, endIndex);
 
   const openModal = (equipo) => {
     setSelectedTeam(equipo);
@@ -41,7 +48,7 @@ const TeamTable = (props) => {
         </thead>
         <p/>
         <tbody>
-          {props.equipos.map((equipo, index) => (
+          {displayedTeams.map((equipo, index) => (
             <tr key={equipo.id} className="table-row">
               <td className="table-cell">
                 <img
@@ -64,6 +71,20 @@ const TeamTable = (props) => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          &lt;  Anterior
+        </button>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={endIndex >= props.equipos.length}
+        >
+          Siguiente  &gt;
+        </button>
+      </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
         {selectedTeam && (
             <div>
