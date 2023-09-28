@@ -7,6 +7,7 @@ import Filtros from '../components/Filtros.js';
 //console.log(JSON.stringify())
 
 const empty = {
+  team:'',
   season:'',
   to:'',
   state:'',

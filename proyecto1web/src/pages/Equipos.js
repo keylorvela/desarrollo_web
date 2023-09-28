@@ -15,7 +15,6 @@ function Equipos() {
    useEffect(() => {
     const execute = async () => {
       try {
-<<<<<<< HEAD
         //const data = await daoEquipos.getTeamsByParams(parametros); // Utiliza la función dao importada
         //setTeams(data.response);
         //console.log(data);

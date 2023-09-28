@@ -319,10 +319,20 @@ function FootballTeamSearch({pparams, handler}) {
   const seasons = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
 
 
+  const handleSeasonChange = (value) => {
+    const newParams = { ...pparams, season: value};
+    handler(newParams);
+  };
+
+  const handleTeamChange = (value) => {
+    const newParams = { ...pparams, team: value};
+    handler(newParams);
+  };
+
   const handleChangeLive = (event) => {
-  const newParams = { ...pparams, vivo: !pparams.vivo };
-  handler(newParams);
-};
+    const newParams = { ...pparams, vivo: !pparams.vivo };
+    handler(newParams);
+  };
 
 const handleFromDateChange = (date) => {
   const formattedDate = dayjs(date).format('YYYY-MM-DD');
@@ -342,27 +352,12 @@ const handleSelectChange = (event) => {
 };
 
 const handleLeagueChange = (league) => {
-  let newParams;
-  if(league){
-    newParams = { ...pparams, league: league};    
-  }else{
-    newParams = { ...pparams, league: ''};
-  }
-  
+  const newParams = { ...pparams, league: league};    
   handler(newParams);
 };
 
 const handleStateChange = (state) => {
-  let newParams;
-
-  if(state){
-    
-    newParams = { ...pparams, state: state};
-
-  }else{
-    newParams = { ...pparams, state: ''};
-  }
-  
+  const newParams = { ...pparams, state: state};
   handler(newParams);
 };
 
@@ -385,6 +380,12 @@ const handleStateChange = (state) => {
         <Grid item xs = {2} mx={3}>
           <Autocomplete
         id="free-solo-demo"
+        onChange={(event, newValue) => {
+          if(newValue)
+            handleSeasonChange(newValue);
+          else
+            handleSeasonChange('');
+        }}
         options={seasons.map((option) => option)}
         renderInput={(params) => <TextField {...params} label="Temporada" />}
       />
@@ -394,6 +395,12 @@ const handleStateChange = (state) => {
           <Autocomplete
         id="free-solo-demo"
         freeSolo
+        onChange={(event, newValue) => {
+          if(newValue)
+            handleTeamChange(newValue);
+          else
+            handleTeamChange('');
+        }}
         options={top100Films.map((option) => option.title)}
         renderInput={(params) => <TextField {...params} label="Equipo" />}
       />
