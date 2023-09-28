@@ -9,7 +9,9 @@ import Filtros from '../components/Filtros.js';
 const empty = {
   season:'',
   to:'',
+  state:'',
   from:'',
+  league : '',
   country:'',
   vivo:false
 };
@@ -27,12 +29,13 @@ function Enfrentamientos() {
   const handleParamChange = (newParams) => {
     setParams(newParams);
   };
+
    useEffect(() => {
     const execute = async () => {
       try {
-        const data = await daoEventos.getFixturesByParams(parametros); // Utiliza la función dao importada
-        setEvents(data.response);
-        console.log(data.response);
+        //const data = await daoEventos.getFixturesByParams(parametros); // Utiliza la función dao importada
+        //setEvents(data.response);
+        //console.log(data.response);
       } catch (error) {
         console.error('Error:', error);
       }

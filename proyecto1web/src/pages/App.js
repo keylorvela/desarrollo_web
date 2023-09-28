@@ -21,7 +21,7 @@ const top100Films = [{"name":"Albania","code":"AL","flag":"https://media-4.api-s
 
 
 function Home() {
-  return <>HOME</>;
+  return <h1>HOME</h1>;
 }
 
 
@@ -67,7 +67,7 @@ function App() {
           <Routes>
             <Route path='/equipos' element={<Equipos/>} />
             <Route path='/enfrentamientos' element={<Enfrentamientos/>} />
-            <Route path='/' element={<Equipos/>} />
+            <Route path='/' element={<Home/>} />
           </Routes>  
       </Router>
     </div>

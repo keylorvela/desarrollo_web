@@ -1,5 +1,6 @@
 import countries from '../data/countries.json';
 import leagues from '../data/leagues.json';
+import states from '../data/states.json';
 
 
 import React, { useState } from 'react';
@@ -27,7 +28,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -39,7 +40,10 @@ function OptionsCountry(){
   )
 };//
 
+
+//Eliminar repetidos
 function noRep(){
+
   const nombresUnicos = new Set(); // Conjunto para realizar un seguimiento de los nombres únicos
   const datosUnicos = []; // Array para almacenar objetos únicos
 
@@ -53,13 +57,83 @@ function noRep(){
 }
 
 
+
+
+
 function sleep(delay = 0) {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 }
 
-function Asynchronous() {
+function Teams({handleChange}) {
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+
+      if (active) {
+        setOptions([...noRep()]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
+
+  return (
+    <Autocomplete
+      id="asynchronous-demo"
+      open={open}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      isOptionEqualToValue={(option, value) => option.league.name === value.league.name}
+      getOptionLabel={(option) => option.league.name}
+      options={options}
+      loading={loading}
+      onChange={(event, newValue) => {
+          handleChange(newValue.league);
+        }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Ligas"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
+    />
+  );
+}
+
+
+function Ligas({handleChange}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -93,7 +167,6 @@ function Asynchronous() {
   return (
     <Autocomplete
       id="asynchronous-demo"
-      sx={{ width: 300 }}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -105,17 +178,23 @@ function Asynchronous() {
       getOptionLabel={(option) => option.league.name}
       options={options}
       loading={loading}
+      onChange={(event, newValue) => {
+          if(newValue  != null)
+            handleChange(newValue.league);
+          else
+            handleChange('');
+        }}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Asynchronous"
+          label="Ligas"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
-              <React.Fragment>
+              <>
                 {loading ? <CircularProgress color="inherit" size={20} /> : null}
                 {params.InputProps.endAdornment}
-              </React.Fragment>
+              </>
             ),
           }}
         />
@@ -123,6 +202,78 @@ function Asynchronous() {
     />
   );
 }
+
+
+function States({handleChange}) {
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState(states);
+  const loading = open && options.length === 0;
+  
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+
+      if (active) {
+        setOptions([...states.response]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
+
+  return (
+    <Autocomplete
+      id="asynchronous-demo"
+      open={open}
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      isOptionEqualToValue={(option, value) => option.desc === value.desc}
+      getOptionLabel={(option) => option.desc}
+      options={options}
+      loading={loading}
+      onChange={(event, newValue) => {
+          if(newValue != null)
+            handleChange(newValue.code);
+          else
+            handleChange('');
+        }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Estados"
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
+    />
+  );
+}
+
+
 
 function SelectCustom({ handleChange, label, items }) { // Añade handleChange como una prop
   return (
@@ -148,8 +299,26 @@ function SelectCustom({ handleChange, label, items }) { // Añade handleChange c
 }//
 
 
+
+
+
+
+
+
+
+
+
+const search = {
+    backgroundColor: '#000000',
+    color: '#FFFFFF'
+  };
+
+
 function FootballTeamSearch({pparams, handler}) {
-  
+  const top100Films = [];
+  const seasons = [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
+
+
   const handleChangeLive = (event) => {
   const newParams = { ...pparams, vivo: !pparams.vivo };
   handler(newParams);
@@ -172,6 +341,32 @@ const handleSelectChange = (event) => {
   handler(newParams);
 };
 
+const handleLeagueChange = (league) => {
+  let newParams;
+  if(league){
+    newParams = { ...pparams, league: league};    
+  }else{
+    newParams = { ...pparams, league: ''};
+  }
+  
+  handler(newParams);
+};
+
+const handleStateChange = (state) => {
+  let newParams;
+
+  if(state){
+    
+    newParams = { ...pparams, state: state};
+
+  }else{
+    newParams = { ...pparams, state: ''};
+  }
+  
+  handler(newParams);
+};
+
+
   
 
   // Llamar a la API con los filtros seleccionados
@@ -183,50 +378,83 @@ const handleSelectChange = (event) => {
 
   return (
     <div>
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
+    <Box sx={{ flexGrow: 1, mx: 2, mt:3}}>
+
+      <Grid container spacing={3} alignItems="center" >
         
-        <Grid item xs>
+        <Grid item xs = {2} mx={3}>
+          <Autocomplete
+        id="free-solo-demo"
+        options={seasons.map((option) => option)}
+        renderInput={(params) => <TextField {...params} label="Temporada" />}
+      />
+        </Grid>
+
+        <Grid item xs = {2}>
+          <Autocomplete
+        id="free-solo-demo"
+        freeSolo
+        options={top100Films.map((option) => option.title)}
+        renderInput={(params) => <TextField {...params} label="Equipo" />}
+      />
+        </Grid>
+
+        <Grid item xs = {1}>
+           <Button variant="contained" style = {search} >Buscar</Button>
+        </Grid>
+
+       
+
+      </Grid>
+      
+
+      <Grid container spacing = {2} my = {2} mx={2}>
+
+        <Grid item>
           <Checkbox
           checked={pparams.vivo}
           onChange={handleChangeLive}
           inputProps={{ 'aria-label': 'controlled' }}/> EN VIVO
         </Grid>
 
-        <Grid item xs>
+        <Grid item >
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+            label = "Desde"
               value={pparams.from}
               onChange={handleFromDateChange}
             />
           </LocalizationProvider>
         </Grid>
 
-        <Grid item xs>
+        <Grid item>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
+            label = "Hasta"
+
               value={pparams.to}
               onChange={handleToDateChange}
             />
           </LocalizationProvider>
         </Grid>
 
-        <Grid item xs>
+        <Grid item >
           <SelectCustom handleChange={handleSelectChange} label = {"Pais"} items = {OptionsCountry} />
         </Grid>
 
         <Grid item xs = {2}>
-          <Asynchronous/>
+          <Ligas handleChange = {handleLeagueChange}/>
         </Grid>
 
-        <Grid item xs>
-         <button onClick={searchTeams}>Buscar</button>
+        <Grid item xs = {2}>
+          <States handleChange = {handleStateChange}/>
         </Grid>
 
 
       </Grid>
-    </Box>
 
+
+    </Box>
     </div>
   );
 }

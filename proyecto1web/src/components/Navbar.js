@@ -51,6 +51,7 @@ function Navbar() {
       alt="Logo"
       width="270px" // Ancho fijo de 200 píxeles
       height="115px" // Alto fijo de 150 píxeles
+      onClick = {() => handleSelected(-1)}
     />
             </Link>
 
