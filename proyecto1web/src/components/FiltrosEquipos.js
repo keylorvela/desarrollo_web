@@ -410,10 +410,10 @@ const handleStateChange = (state) => {
            <Button variant="contained" style = {search} >Buscar</Button>
         </Grid>
 
-       
-
       </Grid>
       
+      <div style={{ marginBottom: '50px' }}></div>
+      <h3 style={{ textAlign: 'left' }}>Filtros</h3>
 
       <Grid container spacing = {2} my = {2} mx={2}>
 

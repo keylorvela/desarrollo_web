@@ -9,7 +9,10 @@ const daoEventos = {
 
   async  getFixturesByParams(params) {
     try {
-      const queryParams = new URLSearchParams(params);
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([key, value]) => value !== '')
+      );
+      const queryParams = new URLSearchParams(filteredParams);
       const url = `https://v3.football.api-sports.io/fixtures?${queryParams.toString()}`;
   
       const response = await fetch(url, requestOptions);

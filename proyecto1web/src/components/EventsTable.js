@@ -17,7 +17,13 @@ const modalStyle = {
 const EventsTable = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedEvent, setselectedEvent] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // elementos por página
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const displayedEvents = props.eventos.slice(startIndex, endIndex);
 
   const openModal = (evento) => {
     setselectedEvent(evento);
@@ -43,7 +49,7 @@ const EventsTable = (props) => {
         </thead>
         <p/>
         <tbody>
-          {props.eventos.map((evento, index) => (
+          {displayedEvents.map((evento, index) => (
             <tr key={evento.id} className="table-row">
               <td className="table-cell">
                 <img
@@ -73,6 +79,20 @@ const EventsTable = (props) => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          &lt;  Anterior
+        </button>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={endIndex >= props.eventos.length}
+        >
+          Siguiente  &gt;
+        </button>
+      </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
         {selectedEvent && (
             <div>
