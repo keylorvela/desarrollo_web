@@ -12,11 +12,11 @@ const empty = {
   team:'',
   season:'',
   to:'',
-  state:'',
+  status:'',
   from:'',
   league : '',
   country:'',
-  vivo:false
+  live:''
 };
 
 
@@ -25,35 +25,35 @@ function Enfrentamientos() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
   const [params, setParams] = React.useState(empty);
-  /*const parametros = {
-    league:'20',
-    season: '2020',
-  };*/
-
   const handleParamChange = (newParams) => {
+    console.log(newParams)
     setParams(newParams);
   };
 
   const handleCloseError = () => {
-    console.log('Cerrando ventana de error');
+    console.log('Cerrando ventana de error');//
     setError(null);
   };
 
-   useEffect(() => {
-    const execute = async () => {
+  useEffect(() => {
+    const executee = async () => {
       try {
-        /*const data = await daoEventos.getFixturesByParams(params); // Utiliza la función dao importada
+        const data = await daoEventos.getFixturesByParams(params);
         setEvents(data.response);
-        console.log(data.response);
-        if (data.errors.length != 0) {
-          setError('data.errors.required');
-        }*/
+        console.log(data);
+        if (data.errors.length !== 0) {
+          setError('No se encontrarón coincidencias');
+        } else {
+          setError(null);
+        }
       } catch (error) {
         console.error('Error:', error);
+        setError(error);
       }
     };
-    execute();
-  }, []);
+
+    executee();
+  }, [params]);
 
 
   return (

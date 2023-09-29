@@ -18,7 +18,7 @@ const EventsTable = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedEvent, setselectedEvent] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // elementos por página
+  const itemsPerPage = 8; // elementos por página
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

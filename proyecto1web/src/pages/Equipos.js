@@ -9,44 +9,46 @@ const empty = {
   league: '',
   country: '',
   season: '',
+  name:'',
+  venue: '',
 };
 
 function Equipos() {
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState(null);
   const [params, setParams] = React.useState(empty);
-  /*const parametros = {
-    league: '',
-    country: '',
-    season: '',
-  };*/
 
+  useEffect(() => {
+    const executee = async () => {
+      try {
+        const data = await daoEquipos.getTeamsByParams(params);
+        setTeams(data.response);
+        console.log(data);
+        if (data.errors.length !== 0) {
+          setError('No se encontrarón coincidencias');
+        } else {
+          setError(null);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setError(error);
+      }
+    };
+
+    executee();
+  }, [params]);
+  
 
   const handleParamChange = (newParams) => {
+    console.log(newParams)
     setParams(newParams);
+    
   };
   
   const handleCloseError = () => {
     console.log('Cerrando ventana de error');
     setError(null);
   };
-
-   useEffect(() => {
-    const execute = async () => {
-      try {
-        /*const data = await daoEquipos.getTeamsByParams(params); // Utiliza la función dao importada
-        setTeams(data.response);
-        console.log(data);
-        if (data.errors.length != 0) {
-          setError('data.errors.required');
-        }*/
-
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-    execute();
-  }, []);
 
 
 

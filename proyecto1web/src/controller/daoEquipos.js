@@ -5,7 +5,7 @@ const apiUrl = "https://v3.football.api-sports.io/countries";
   const requestOptions = {
     headers: {
       'x-rapidapi-host': 'v3.football.api-sports.io',
-      'x-rapidapi-key': '2746936c0db6b85184039cd8701f5e7a',
+      'x-rapidapi-key': 'baca20a8194e316f4264a6b5a5a73b3c',
     },
   };
 

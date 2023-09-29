@@ -1,6 +1,6 @@
 import countries from '../data/countries.json';
 import leagues from '../data/leagues.json';
-import states from '../data/states.json';
+import venue from '../data/venue.json';
 
 
 import React, { useState } from 'react';
@@ -180,7 +180,7 @@ function Ligas({handleChange}) {
       loading={loading}
       onChange={(event, newValue) => {
           if(newValue  != null)
-            handleChange(newValue.league);
+            handleChange(newValue.league.id);
           else
             handleChange('');
         }}
@@ -204,9 +204,9 @@ function Ligas({handleChange}) {
 }
 
 
-function States({handleChange}) {
+function Venue({handleChange}) {
   const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState(states);
+  const [options, setOptions] = React.useState(venue);
   const loading = open && options.length === 0;
   
   React.useEffect(() => {
@@ -219,7 +219,7 @@ function States({handleChange}) {
     (async () => {
 
       if (active) {
-        setOptions([...states.response]);
+        setOptions([...venue.response]);
       }
     })();
 
@@ -244,20 +244,20 @@ function States({handleChange}) {
       onClose={() => {
         setOpen(false);
       }}
-      isOptionEqualToValue={(option, value) => option.desc === value.desc}
-      getOptionLabel={(option) => option.desc}
+      isOptionEqualToValue={(option, value) => option.name === value.name}
+      getOptionLabel={(option) => option.name}
       options={options}
       loading={loading}
       onChange={(event, newValue) => {
           if(newValue != null)
-            handleChange(newValue.code);
+            handleChange(newValue.id);
           else
             handleChange('');
         }}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Estados"
+          label="Estadios"
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -290,7 +290,7 @@ function SelectCustom({ handleChange, label, items }) { // Añade handleChange c
           <em>None</em>
         </MenuItem>
         {countries.response?.map((item, index) => (
-          <MenuItem key = {index} value={item.code}>{item.name}</MenuItem>
+          <MenuItem key = {index} value={item.name}>{item.name}</MenuItem>
         ))}
         
       </Select>
@@ -325,26 +325,9 @@ function FootballTeamSearch({pparams, handler}) {
   };
 
   const handleTeamChange = (value) => {
-    const newParams = { ...pparams, team: value};
+    const newParams = { ...pparams, name: value};
     handler(newParams);
   };
-
-  const handleChangeLive = (event) => {
-    const newParams = { ...pparams, vivo: !pparams.vivo };
-    handler(newParams);
-  };
-
-const handleFromDateChange = (date) => {
-  const formattedDate = dayjs(date).format('YYYY-MM-DD');
-  const newParams = { ...pparams, from: formattedDate };
-  handler(newParams);
-};
-
-const handleToDateChange = (date) => {
-  const formattedDate = dayjs(date).format('YYYY-MM-DD');
-  const newParams = { ...pparams, to: formattedDate };
-  handler(newParams);
-};
 
 const handleSelectChange = (event) => {
   const newParams = { ...pparams, country: event.target.value };
@@ -356,8 +339,8 @@ const handleLeagueChange = (league) => {
   handler(newParams);
 };
 
-const handleStateChange = (state) => {
-  const newParams = { ...pparams, state: state};
+const handleVenueChange = (venue) => {
+  const newParams = { ...pparams, venue: venue};
   handler(newParams);
 };
 
@@ -413,37 +396,9 @@ const handleStateChange = (state) => {
       </Grid>
       
       <div style={{ marginBottom: '50px' }}></div>
-      <h3 style={{ textAlign: 'left' }}>Filtros</h3>
+      <h3 style={{ textAlign: 'left', textDecoration: 'underline'  }}>Filtros: </h3>
 
       <Grid container spacing = {2} my = {2} mx={2}>
-
-        <Grid item>
-          <Checkbox
-          checked={pparams.vivo}
-          onChange={handleChangeLive}
-          inputProps={{ 'aria-label': 'controlled' }}/> EN VIVO
-        </Grid>
-
-        <Grid item >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-            label = "Desde"
-              value={pparams.from}
-              onChange={handleFromDateChange}
-            />
-          </LocalizationProvider>
-        </Grid>
-
-        <Grid item>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-            label = "Hasta"
-
-              value={pparams.to}
-              onChange={handleToDateChange}
-            />
-          </LocalizationProvider>
-        </Grid>
 
         <Grid item >
           <SelectCustom handleChange={handleSelectChange} label = {"Pais"} items = {OptionsCountry} />
@@ -454,7 +409,7 @@ const handleStateChange = (state) => {
         </Grid>
 
         <Grid item xs = {2}>
-          <States handleChange = {handleStateChange}/>
+          <Venue handleChange = {handleVenueChange}/>
         </Grid>
 
 

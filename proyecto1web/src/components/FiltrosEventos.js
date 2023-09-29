@@ -180,7 +180,7 @@ function Ligas({handleChange}) {
       loading={loading}
       onChange={(event, newValue) => {
           if(newValue  != null)
-            handleChange(newValue.league);
+            handleChange(newValue.league.id);
           else
             handleChange('');
         }}
@@ -330,7 +330,11 @@ function FootballTeamSearch({pparams, handler}) {
   };
 
   const handleChangeLive = (event) => {
-    const newParams = { ...pparams, vivo: !pparams.vivo };
+    var live = '';
+    if (pparams.live == ''){
+      live = 'all'
+    }
+    const newParams = { ...pparams, live: live };
     handler(newParams);
   };
 
@@ -357,7 +361,7 @@ const handleLeagueChange = (league) => {
 };
 
 const handleStateChange = (state) => {
-  const newParams = { ...pparams, state: state};
+  const newParams = { ...pparams, status: state};
   handler(newParams);
 };
 
